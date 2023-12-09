@@ -1,35 +1,47 @@
 import { createRenderer } from "../runtime-core";
 import { isOn } from "../shared/index";
 
-export function createElement(type){
-    return document.createElement(type)
+export function createElement(type) {
+  return document.createElement(type);
 }
 
-export function patchProps(el,key,val){
-    if (isOn(key)) {
-        const event = key.slice(2).toLowerCase();
-        el.addEventListener(event, val);
-      } else {
-        el.setAttribute(key, val);
-      }
+export function patchProps(el, key, prevVal, nextVal) {
+  if (isOn(key)) {
+    const event = key.slice(2).toLowerCase();
+    el.addEventListener(event, nextVal);
+  } else {
+    if (nextVal === null || nextVal === undefined) {
+      el.removeAttribute(key);
+    } else {
+      el.setAttribute(key, nextVal);
+    }
+  }
 }
 
-
-export function insert(el,parent){
-    parent.appendChild(el)
+export function insert(el, parent) {
+  parent.appendChild(el);
 }
 
+export function remove(child) {
+  const parent = child.parentNode;
+  if (parent) {
+    parent.removeChild(child);
+  }
+}
 
-
-const renderer:any = createRenderer({
+export function setElementText(el, text) {
+  el.textContent = text;
+}
+const renderer: any = createRenderer({
   createElement,
   patchProps,
-  insert
-})
+  insert,
+  remove,
+  setElementText,
+});
 
-
-export function createApp(...args){
-  return renderer.createApp(...args)
+export function createApp(...args) {
+  return renderer.createApp(...args);
 }
 
-export * from '../runtime-core'
+export * from "../runtime-core";
