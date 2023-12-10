@@ -366,7 +366,7 @@ function getSequence(nums) {
     }
   }
 
-  const subsequence = [];
+  const subsequence: number[] = [];
   let currentLength = maxLength;
 
   for (let i = endIndex; i >= 0; i--) {
