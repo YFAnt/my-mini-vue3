@@ -4,7 +4,7 @@ const nextChildren = "newChildren";
 const prevChildren = 'oldChildren' 
 
 export default {
-  name: "ArrayToText",
+  name: "TextToText",
   setup() {
     const isChange = ref(false);
     window.isChange = isChange;
