@@ -13,7 +13,7 @@ describe('effect', () => {
 
         expect(nextAge).toBe(11)
         user.age = 12
-        expect(nextAge).toBe(12)
+        expect(nextAge).toBe(13)
     })
     it('should return runner', () => {
         let foo = 10
