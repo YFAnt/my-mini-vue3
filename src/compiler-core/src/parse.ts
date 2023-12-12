@@ -35,9 +35,9 @@ function isEnd(context, ancestors) {
   const s = context.source;
   if (s.startsWith("</")) {
     for (let i = ancestors.length - 1; i >= 0; i--) {
-      const tag = ancestors[i].tag
+      const tag = ancestors[i].tag;
       if (startsWithEndTagOpen(s, tag)) {
-        return true
+        return true;
       }
     }
   }
@@ -46,7 +46,7 @@ function isEnd(context, ancestors) {
 
 function parseText(context) {
   let endIndex = context.source.length;
-  let endTokens = ["{{", '<'];
+  let endTokens = ["{{", "<"];
   for (let i = 0; i < endTokens.length; i++) {
     const index = context.source.indexOf(endTokens[i]);
     if (index > -1 && endIndex > index) {
@@ -55,7 +55,7 @@ function parseText(context) {
   }
 
   const content = parseTextData(context, endIndex);
-  console.log('content __________', content)
+  // console.log('content __________', content)
   return {
     type: NodeTypes.TEXT,
     content: content,
@@ -73,13 +73,13 @@ function parseElement(context, ancestors) {
   //2. 解析tag
 
   const element: any = parseTag(context, TagType.START);
-  ancestors.push(element)
+  ancestors.push(element);
   element.children = parseChildren(context, ancestors);
-  ancestors.pop()
+  ancestors.pop();
   if (startsWithEndTagOpen(context.source, element.tag)) {
     parseTag(context, TagType.END);
   } else {
-    throw new Error(`缺少结束标签:${element.tag}`)
+    throw new Error(`缺少结束标签:${element.tag}`);
   }
 
   return element;
@@ -126,6 +126,7 @@ function advanceBy(context: any, length) {
 function createRoot(children) {
   return {
     children,
+    type: NodeTypes.ROOT,
   };
 }
 
@@ -134,7 +135,9 @@ function createParserContext(content) {
     source: content,
   };
 }
-function startsWithEndTagOpen(s:string, tag: string) {
-  return s.startsWith('</') && s.slice(2, 2 + tag.length).toLowerCase() === tag.toLowerCase()
+function startsWithEndTagOpen(s: string, tag: string) {
+  return (
+    s.startsWith("</") &&
+    s.slice(2, 2 + tag.length).toLowerCase() === tag.toLowerCase()
+  );
 }
-
