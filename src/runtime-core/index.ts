@@ -14,4 +14,5 @@ export { nextTick } from "./scheduler";
 
 export { toDisplayString } from "../shared";
 
+export { watchEffect } from "./apiWatchEffect";
 export * from "../reactivity";
