@@ -31,7 +31,7 @@ function genFunctionPreamble(ast: any, context) {
     );
   }
   push("\n");
-  push("renturn ");
+  push("return ");
 }
 
 function genNode(node, context) {
@@ -75,8 +75,8 @@ function genNodeList(nodes, context) {
     } else {
       genNode(node, context);
     }
-    if(i< nodes.length - 1){
-      push(', ')
+    if (i < nodes.length - 1) {
+      push(", ");
     }
   }
 }
