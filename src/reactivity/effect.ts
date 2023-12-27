@@ -13,6 +13,7 @@ export class ReactiveEffect {
     deps: Array<Set<ReactiveEffect>> = []
     constructor(fn: any, public scheduler?: any) {
         this._fn = fn
+        this.scheduler = scheduler
     }
     run() {
         if (!this.active) {
@@ -88,7 +89,6 @@ export function triggerEffects(dep){
 
 export function effect(fn: Function, options: any = {}) {
     const _effect = new ReactiveEffect(fn, options.scheduler)
-    Object.assign(_effect, options)
     extend(_effect, options)
     _effect.run()
     const runner: any = _effect.run.bind(_effect)

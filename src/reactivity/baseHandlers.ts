@@ -7,7 +7,7 @@ const get = createGetter()
 const set = createSetter()
 
 const readonlyGet = createGetter(true)
-const shallowReactiveGet = createGetter(false, true)
+const shallowReactiveGet = createGetter(true, true)
 
 
 function createGetter(isReadOnly = false, shallow = false) {

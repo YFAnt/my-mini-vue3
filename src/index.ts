@@ -12,3 +12,4 @@ function compileToFunction(template) {
 }
 
 registerRuntimeCompiler(compileToFunction);
+
